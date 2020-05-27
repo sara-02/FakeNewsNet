@@ -86,6 +86,23 @@ Logs are wittern in the same folder in a file named as `data_collection_<timesta
 
 The dataset will be downloaded in the directory provided in the `config.json` and progress can be monitored in `data_collection.out` file. 
 
+## NOTE: If you face newspaper library's "permission denined error" in the data_collections_\<timestamp\>.log, it is because of the default "/tmp" directory it tries to access to create the temporary news storage.
+Related issues https://github.com/codelucas/newspaper/issues/384 and https://github.com/codelucas/newspaper/issues/462
+Inspired by these solutions I included the following hack to have the temp code go to a news_temp folder inside the code folder. 
+* Better to use a virtual env for this. Stop the api and data collection programs.
+* cd env/lib/ython3.6/newspaper
+* Open settings.py and modify the TOP_DIR part as follows
+```python
+## Assuming we have read permissions to the folder where the data is getting collected.
+
+news_temp="news_temp"
+if not os.path.isdir(news_temp):
+    os.mkdir("news_temp")
+#TOP_DIRECTORY = os.path.join(tempfile.gettempdir(), DATA_DIRECTORY)
+TOP_DIRECTORY = os.path.join(news_temp, DATA_DIRECTORY)
+```
+* Re run the server nd the data collection programs, you should not be seeing the permission denied error now.
+
 ### Dataset Structure
 The downloaded dataset will have the following  folder structure,
 ```bash
