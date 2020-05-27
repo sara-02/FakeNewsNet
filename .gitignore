@@ -1,0 +1,6 @@
+code/resources/tweet_keys_file.json
+env3/
+*__pycache__/
+*.out
+*.log
+code/fakenewsnet_dataset/

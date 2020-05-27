@@ -58,4 +58,4 @@ def get_num_process():
 
 if __name__ == '__main__':
     init_state(get_num_process())
-    app.run(host='0.0.0.0', debug=False)
+    app.run(host='0.0.0.0', port=9898, debug=False)
